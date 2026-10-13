@@ -1,0 +1,1558 @@
+/* =========================
+   Base Settings
+========================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --dark: #080605;
+  --deep-red: #401010;
+  --blood-red: #7a1717;
+  --old-gold: #c2a46d;
+  --paper: #d8c6a2;
+  --paper-dark: #8d7655;
+  --shadow: rgba(0, 0, 0, 0.85);
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at center,
+      #241514 0%,
+      #080605 60%,
+      #000000 100%
+    );
+
+  color: var(--paper);
+  font-family:
+    "Noto Serif",
+    Georgia,
+    "Times New Roman",
+    serif;
+}
+
+
+/* =========================
+   Common States
+========================= */
+
+.hidden {
+  display: none !important;
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--old-gold);
+  outline-offset: 3px;
+}
+
+
+/* =========================
+   Start Screen
+========================= */
+
+.start-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.48),
+      rgba(0, 0, 0, 0.88)
+    ),
+    url("images/hall/screen1.jpg") center / cover no-repeat;
+}
+
+.start-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 15%,
+      rgba(0, 0, 0, 0.92) 100%
+    );
+
+  pointer-events: none;
+}
+
+.start-content {
+  position: relative;
+  z-index: 1;
+
+  width: min(520px, 90vw);
+  padding: 48px 36px;
+
+  text-align: center;
+
+  background: rgba(12, 8, 6, 0.72);
+  border: 1px solid rgba(194, 164, 109, 0.42);
+  box-shadow:
+    0 0 50px rgba(0, 0, 0, 0.9),
+    inset 0 0 35px rgba(95, 19, 19, 0.18);
+
+  backdrop-filter: blur(5px);
+}
+
+.start-subtitle {
+  margin-bottom: 12px;
+
+  color: #a98d63;
+  font-family: Georgia, serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.28rem;
+  text-transform: uppercase;
+}
+
+.start-content h1 {
+  margin-bottom: 20px;
+
+  color: #d7bd88;
+  font-size: clamp(2.7rem, 7vw, 5rem);
+  font-weight: 500;
+  letter-spacing: 0.35rem;
+
+  text-shadow:
+    0 2px 4px #000000,
+    0 0 18px rgba(134, 24, 24, 0.75);
+}
+
+.start-description {
+  margin-bottom: 32px;
+
+  color: #cbb99b;
+  font-size: 1rem;
+  line-height: 1.9;
+  letter-spacing: 0.08rem;
+}
+
+#start-button {
+  min-width: 170px;
+  padding: 13px 28px;
+
+  color: #e1c99d;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(104, 24, 24, 0.95),
+      rgba(46, 10, 10, 0.95)
+    );
+
+  border: 1px solid #977344;
+  cursor: pointer;
+
+  letter-spacing: 0.16rem;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.6),
+    inset 0 0 12px rgba(0, 0, 0, 0.5);
+
+  transition:
+    transform 180ms ease,
+    filter 180ms ease,
+    box-shadow 180ms ease;
+}
+
+#start-button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+
+  box-shadow:
+    0 0 22px rgba(139, 33, 33, 0.58),
+    inset 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+
+/* =========================
+   Game Container
+========================= */
+
+.game {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #000000;
+}
+
+.game-stage {
+  position: relative;
+
+  width: min(100vw, calc(100vh * 16 / 9));
+  aspect-ratio: 16 / 9;
+
+  max-width: 100vw;
+  max-height: 100vh;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  background: #070504;
+
+  box-shadow:
+    0 0 70px rgba(0, 0, 0, 0.95),
+    inset 0 0 70px rgba(0, 0, 0, 0.65);
+}
+
+
+/* Scene vignette */
+
+.game-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 42%,
+      rgba(0, 0, 0, 0.3) 72%,
+      rgba(0, 0, 0, 0.83) 100%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================
+   Scene Background
+========================= */
+
+.scene-background {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+
+/* =========================
+   Transparent Prop Layer
+========================= */
+
+.prop-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+}
+
+.scene-prop {
+  position: absolute;
+
+  display: block;
+  object-fit: contain;
+
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+
+  filter:
+    brightness(0.88)
+    drop-shadow(0 4px 8px rgba(0, 0, 0, 0.7));
+
+  transition:
+    transform 180ms ease,
+    filter 180ms ease,
+    opacity 180ms ease;
+}
+
+.scene-prop:hover,
+.scene-prop:focus-visible {
+  z-index: 20;
+
+  transform: scale(1.06);
+
+  filter:
+    brightness(1.2)
+    drop-shadow(0 0 6px rgba(224, 183, 98, 0.9))
+    drop-shadow(0 0 15px rgba(130, 24, 24, 0.85));
+}
+
+.scene-prop.collected {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* Prop name tooltip */
+
+.prop-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+
+  transform: translateX(-50%);
+
+  min-width: max-content;
+  padding: 5px 10px;
+
+  color: #dbc69e;
+  background: rgba(10, 7, 5, 0.88);
+
+  border: 1px solid rgba(177, 143, 89, 0.48);
+  border-radius: 3px;
+
+  font-size: 0.72rem;
+  letter-spacing: 0.08rem;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 160ms ease;
+}
+
+.prop-wrapper:hover .prop-tooltip {
+  opacity: 1;
+}
+
+
+/* =========================
+   Top Game Interface
+========================= */
+
+.game-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+
+  width: 100%;
+  min-height: 68px;
+  padding: 14px 18px;
+
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
+  align-items: center;
+  gap: 12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.83),
+      rgba(0, 0, 0, 0)
+    );
+
+  pointer-events: none;
+}
+
+.game-header > * {
+  pointer-events: auto;
+}
+
+.game-header h2 {
+  color: #d9c39a;
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 1.45rem);
+  font-weight: 500;
+  letter-spacing: 0.2rem;
+
+  text-shadow:
+    0 2px 4px #000000,
+    0 0 10px rgba(94, 15, 15, 0.75);
+}
+
+.ui-button,
+.inventory-side-button {
+  padding: 9px 14px;
+
+  color: #d0b98d;
+  background: rgba(20, 12, 9, 0.78);
+
+  border: 1px solid rgba(166, 132, 77, 0.5);
+  border-radius: 3px;
+
+  cursor: pointer;
+
+  font-size: 0.82rem;
+  letter-spacing: 0.08rem;
+
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.ui-button:hover,
+.inventory-side-button:hover {
+  color: #f0d8a6;
+  background: rgba(83, 19, 19, 0.9);
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   Scene Message Text
+========================= */
+
+.message-box {
+  position: absolute;
+  left: 50%;
+  bottom: 112px;
+  z-index: 30;
+
+  transform: translateX(-50%);
+
+  width: min(680px, 82%);
+  padding: 13px 22px;
+
+  color: #d7c4a1;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(9, 6, 5, 0.9) 15%,
+      rgba(9, 6, 5, 0.9) 85%,
+      transparent
+    );
+
+  text-align: center;
+  font-size: clamp(0.78rem, 1.4vw, 0.98rem);
+  line-height: 1.7;
+  letter-spacing: 0.06rem;
+
+  text-shadow: 0 2px 3px #000000;
+  pointer-events: none;
+}
+
+
+/* =========================
+   Bottom Inventory Bar
+========================= */
+
+.inventory-panel {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  z-index: 30;
+
+  transform: translateX(-50%);
+
+  width: min(820px, 94%);
+  height: 88px;
+  padding: 9px;
+
+  display: grid;
+  grid-template-columns: 76px 1fr 76px;
+  gap: 10px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(38, 27, 20, 0.95),
+      rgba(10, 7, 5, 0.97)
+    );
+
+  border: 1px solid rgba(168, 131, 75, 0.58);
+  border-radius: 6px;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.82),
+    inset 0 0 20px rgba(0, 0, 0, 0.72);
+}
+
+.inventory-list {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color: #785631 #17100c;
+}
+
+.inventory-slot {
+  position: relative;
+
+  flex: 0 0 62px;
+  width: 62px;
+  height: 62px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.46);
+  border: 1px solid rgba(142, 109, 63, 0.43);
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.inventory-slot:hover {
+  transform: translateY(-3px);
+  background: rgba(90, 22, 22, 0.45);
+  border-color: #b38c52;
+}
+
+.inventory-slot.selected {
+  border-color: #d2af69;
+
+  box-shadow:
+    0 0 10px rgba(220, 177, 91, 0.65),
+    inset 0 0 10px rgba(115, 25, 25, 0.45);
+}
+
+.inventory-slot img {
+  max-width: 86%;
+  max-height: 86%;
+  object-fit: contain;
+
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.75));
+}
+
+
+/* =========================
+   Common Modal Styles
+========================= */
+
+.overlay-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(6px);
+}
+
+.panel-content,
+.item-modal-content {
+  position: relative;
+
+  width: min(620px, 92vw);
+  max-height: 84vh;
+  padding: 38px 32px;
+
+  overflow-y: auto;
+
+  color: #3c2c1f;
+
+  background:
+    linear-gradient(
+      rgba(217, 198, 157, 0.95),
+      rgba(181, 153, 106, 0.96)
+    );
+
+  border: 8px solid #34251b;
+  outline: 1px solid #987547;
+
+  box-shadow:
+    0 18px 55px rgba(0, 0, 0, 0.9),
+    inset 0 0 35px rgba(71, 39, 19, 0.35);
+}
+
+.panel-content::before,
+.item-modal-content::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+
+  border: 1px solid rgba(82, 48, 27, 0.38);
+  pointer-events: none;
+}
+
+.panel-content h2,
+.item-modal-content h2 {
+  position: relative;
+
+  margin-bottom: 22px;
+
+  color: #471919;
+  text-align: center;
+  font-size: 1.45rem;
+  font-weight: 600;
+  letter-spacing: 0.14rem;
+}
+
+.close-button {
+  position: absolute;
+  top: 9px;
+  right: 12px;
+  z-index: 5;
+
+  width: 34px;
+  height: 34px;
+
+  color: #4a2019;
+  background: transparent;
+
+  border: none;
+  cursor: pointer;
+
+  font-family: Arial, sans-serif;
+  font-size: 1.8rem;
+  line-height: 1;
+
+  transition: transform 150ms ease;
+}
+
+.close-button:hover {
+  transform: rotate(8deg) scale(1.1);
+}
+
+
+/* =========================
+   Item View Modal
+========================= */
+
+.item-modal-content {
+  text-align: center;
+}
+
+#modal-image {
+  display: block;
+
+  max-width: min(320px, 75%);
+  max-height: 42vh;
+  margin: 0 auto 20px;
+
+  object-fit: contain;
+
+  filter: drop-shadow(0 8px 12px rgba(35, 20, 12, 0.45));
+}
+
+#modal-description {
+  position: relative;
+
+  color: #3c2b20;
+  font-size: 0.95rem;
+  line-height: 1.9;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.modal-actions {
+  position: relative;
+
+  margin-top: 24px;
+
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 9px 18px;
+
+  color: #ead8b4;
+  background: #4d1c18;
+
+  border: 1px solid #70442b;
+  cursor: pointer;
+
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.modal-actions button:hover {
+  background: #73221d;
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   Map and Clue Lists
+========================= */
+
+.location-list,
+.clue-list {
+  position: relative;
+
+  display: grid;
+  gap: 10px;
+}
+
+.location-button,
+.clue-card {
+  width: 100%;
+  padding: 14px 16px;
+
+  color: #3e2c1e;
+  background: rgba(255, 246, 218, 0.25);
+
+  border: 1px solid rgba(82, 49, 28, 0.35);
+
+  text-align: left;
+}
+
+.location-button {
+  cursor: pointer;
+}
+
+.location-button:hover:not(:disabled) {
+  color: #5f1717;
+  background: rgba(116, 40, 30, 0.13);
+}
+
+.location-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.empty-message {
+  color: rgba(56, 39, 27, 0.7);
+  text-align: center;
+  line-height: 1.8;
+}
+
+
+/* =========================
+   Small Screen Adjustments
+========================= */
+
+@media (max-width: 700px) {
+  .game-header {
+    min-height: 54px;
+    padding: 8px 10px;
+
+    grid-template-columns: 70px 1fr 70px;
+  }
+
+  .ui-button,
+  .inventory-side-button {
+    padding: 7px 8px;
+    font-size: 0.7rem;
+  }
+
+  .inventory-panel {
+    bottom: 6px;
+
+    width: 96%;
+    height: 70px;
+    padding: 6px;
+
+    grid-template-columns: 58px 1fr 58px;
+    gap: 6px;
+  }
+
+  .inventory-slot {
+    flex-basis: 50px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .message-box {
+    bottom: 82px;
+    width: 88%;
+    padding: 8px 14px;
+  }
+
+  .panel-content,
+  .item-modal-content {
+    padding: 32px 20px 24px;
+    border-width: 5px;
+  }
+}
+
+
+/* =========================
+   Reduced Motion Settings
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+.paper-doll {
+  transform-origin: center bottom;
+}
+
+.paper-doll:hover,
+.paper-doll:focus-visible {
+  transform: scale(1.04);
+
+  filter:
+    brightness(1.15)
+    drop-shadow(0 0 7px rgba(220, 185, 115, 0.8))
+    drop-shadow(0 0 18px rgba(120, 18, 18, 0.9));
+}
+.placed-offering {
+  position: absolute;
+  z-index: 22;
+
+  display: block;
+  object-fit: contain;
+
+  pointer-events: none;
+
+  filter:
+    brightness(1.08)
+    drop-shadow(0 0 8px rgba(214, 173, 91, 0.7));
+}
+
+.paper-doll.solved {
+  filter:
+    brightness(1.08)
+    drop-shadow(0 0 10px rgba(120, 20, 20, 0.75));
+}
+.wedding-reward {
+  position: absolute;
+  z-index: 30;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.wedding-reward:hover {
+  filter: drop-shadow(0 0 12px rgba(255, 40, 40, 0.9));
+  transform: scale(1.08);
+}
+.workshop-cabinet-hotspot {
+  position: absolute;
+  z-index: 5;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.workshop-cabinet-hotspot:hover {
+  border-color: rgba(194, 40, 45, 0.45);
+  box-shadow:
+    inset 0 0 30px rgba(130, 0, 0, 0.3),
+    0 0 18px rgba(180, 20, 25, 0.35);
+}
+
+
+/* Clue Counter Badge */
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.clue-badge {
+  display: inline-block;
+  padding: 5px 10px;
+
+  color: #e3caa1;
+  background: rgba(45, 15, 15, 0.85);
+
+  border: 1px solid rgba(194, 164, 109, 0.6);
+  border-radius: 3px;
+
+  font-size: 0.78rem;
+  letter-spacing: 0.06rem;
+  white-space: nowrap;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+/* =========================
+   Start Screen: Intro and Name Field
+========================= */
+
+.start-intro {
+  margin: 0 0 24px;
+  padding: 14px 0;
+
+  border-top: 1px solid rgba(194, 164, 109, 0.25);
+  border-bottom: 1px solid rgba(194, 164, 109, 0.25);
+}
+
+.intro-line {
+  color: #b9a583;
+  font-size: 0.92rem;
+  font-style: italic;
+  line-height: 1.8;
+  letter-spacing: 0.04rem;
+}
+
+.intro-line + .intro-line {
+  margin-top: 6px;
+  color: #c98a7a;
+}
+
+.name-field {
+  margin-bottom: 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.name-field label {
+  color: #a98d63;
+  font-size: 0.8rem;
+  letter-spacing: 0.18rem;
+  text-transform: uppercase;
+}
+
+.name-field input {
+  width: min(280px, 100%);
+  padding: 10px 14px;
+
+  color: #e1c99d;
+  background: rgba(0, 0, 0, 0.55);
+
+  border: 1px solid #977344;
+  border-radius: 2px;
+
+  font: inherit;
+  text-align: center;
+  letter-spacing: 0.08rem;
+}
+
+.name-field input::placeholder {
+  color: rgba(203, 185, 155, 0.45);
+}
+
+.name-field input:focus {
+  outline: none;
+  border-color: #d2af69;
+  box-shadow: 0 0 12px rgba(210, 175, 105, 0.4);
+}
+
+.name-error {
+  color: #d86a5a;
+  font-size: 0.8rem;
+}
+
+
+/* =========================
+   Player Name Tag
+========================= */
+
+.player-tag {
+  position: absolute;
+  left: 18px;
+  top: 62px;
+  z-index: 30;
+
+  max-width: 40%;
+  padding: 5px 12px;
+
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+
+  background: rgba(20, 12, 9, 0.72);
+  border-left: 2px solid #977344;
+  border-radius: 2px;
+
+  pointer-events: none;
+}
+
+.player-tag-label {
+  color: #a98d63;
+  font-size: 0.62rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+}
+
+.player-tag-name {
+  overflow: hidden;
+
+  color: #e1c99d;
+  font-size: 0.92rem;
+  letter-spacing: 0.06rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================
+   Guidance Prompt (next location)
+========================= */
+
+.scene-prompt {
+  position: absolute;
+  left: 50%;
+  top: 76px;
+  z-index: 31;
+
+  transform: translateX(-50%);
+
+  width: max-content;
+  max-width: min(720px, 88%);
+  padding: 12px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+
+  color: #ead8b4;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(74, 20, 18, 0.95),
+      rgba(30, 8, 8, 0.96)
+    );
+
+  border: 1px solid #b38c52;
+  border-radius: 4px;
+
+  font-size: clamp(0.78rem, 1.3vw, 0.95rem);
+  letter-spacing: 0.05rem;
+  line-height: 1.6;
+  text-align: center;
+
+  animation: prompt-glow 2.4s ease-in-out infinite;
+}
+
+.scene-prompt-button {
+  padding: 8px 16px;
+
+  color: #f6e2b4;
+  background: #7a1717;
+
+  border: 1px solid #d2af69;
+  border-radius: 3px;
+  cursor: pointer;
+
+  letter-spacing: 0.08rem;
+
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.scene-prompt-button:hover {
+  background: #9a2020;
+  transform: translateY(-1px);
+}
+
+@keyframes prompt-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 14px rgba(139, 33, 33, 0.45),
+      0 6px 20px rgba(0, 0, 0, 0.7);
+  }
+
+  50% {
+    box-shadow:
+      0 0 28px rgba(190, 50, 40, 0.8),
+      0 6px 20px rgba(0, 0, 0, 0.7);
+  }
+}
+
+
+/* =========================
+   Map Button Alert and Map List
+========================= */
+
+.ui-button.has-new {
+  position: relative;
+
+  color: #f0d8a6;
+  border-color: #d2af69;
+
+  animation: map-pulse 1.8s ease-in-out infinite;
+}
+
+.ui-button.has-new::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  right: -4px;
+
+  width: 10px;
+  height: 10px;
+
+  background: #d63a3a;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(214, 58, 58, 0.9);
+}
+
+@keyframes map-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(210, 175, 105, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 14px rgba(210, 175, 105, 0.75);
+  }
+}
+
+.map-progress {
+  position: relative;
+
+  margin: -10px 0 16px;
+
+  color: rgba(56, 39, 27, 0.75);
+  text-align: center;
+  font-size: 0.85rem;
+  letter-spacing: 0.08rem;
+}
+
+.location-button {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.location-number {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #5f1717;
+  border: 1px solid rgba(82, 49, 28, 0.5);
+  border-radius: 50%;
+
+  font-size: 0.85rem;
+}
+
+.location-info {
+  flex: 1;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.location-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.location-hint {
+  color: rgba(56, 39, 27, 0.7);
+  font-size: 0.78rem;
+}
+
+.location-status {
+  flex: 0 0 auto;
+  padding: 3px 9px;
+
+  border: 1px solid currentColor;
+  border-radius: 10px;
+
+  font-size: 0.72rem;
+  letter-spacing: 0.06rem;
+  white-space: nowrap;
+}
+
+.status-current {
+  color: #5f1717;
+  background: rgba(116, 40, 30, 0.15);
+}
+
+.status-done {
+  color: #2f5a2f;
+}
+
+.status-new {
+  color: #8a1b1b;
+  background: rgba(194, 60, 50, 0.15);
+  font-weight: 600;
+}
+
+.status-progress {
+  color: #6b5030;
+}
+
+.status-locked {
+  color: rgba(56, 39, 27, 0.55);
+}
+
+.location-button.is-current {
+  border-color: #7a1717;
+  background: rgba(116, 40, 30, 0.12);
+}
+
+.location-button.is-new {
+  border-color: #a02020;
+  box-shadow: 0 0 10px rgba(160, 32, 32, 0.35);
+}
+/* =========================
+   Chinese Horror Start Screen
+========================= */
+
+.start-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+
+  min-height: 100vh;
+  height: 100dvh;
+  padding: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow-y: auto;
+
+  background:
+    linear-gradient(
+      rgba(12, 0, 0, 0.42),
+      rgba(0, 0, 0, 0.88)
+    ),
+    url("images/hall/screen1.jpg")
+    center / cover no-repeat;
+}
+
+/* 黑色暗角和红色雾气 */
+.start-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(116, 13, 13, 0.18),
+      transparent 30%
+    ),
+    radial-gradient(
+      ellipse at center,
+      transparent 20%,
+      rgba(0, 0, 0, 0.93) 100%
+    );
+
+  pointer-events: none;
+}
+
+/* 两侧像红色帷幕一样的阴影 */
+.start-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(68, 0, 0, 0.48) 0%,
+      transparent 18%,
+      transparent 82%,
+      rgba(68, 0, 0, 0.48) 100%
+    );
+
+  pointer-events: none;
+}
+
+/* 中间婚帖式面板 */
+.start-content {
+  position: relative;
+  z-index: 2;
+
+  width: min(760px, 92vw);
+  max-height: calc(100dvh - 36px);
+  padding: 34px 70px 30px;
+
+  overflow-y: auto;
+  text-align: center;
+
+  background:
+    linear-gradient(
+      rgba(26, 5, 5, 0.95),
+      rgba(8, 3, 3, 0.97)
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 7px,
+      rgba(195, 151, 87, 0.025) 8px
+    );
+
+  border: 1px solid rgba(191, 145, 75, 0.8);
+  outline: 1px solid rgba(112, 22, 22, 0.75);
+  outline-offset: -9px;
+
+  box-shadow:
+    0 0 70px rgba(0, 0, 0, 0.95),
+    0 0 30px rgba(105, 8, 8, 0.35),
+    inset 0 0 55px rgba(0, 0, 0, 0.8);
+}
+
+/* 两侧暗红囍字装饰 */
+.start-content::before,
+.start-content::after {
+  position: absolute;
+  top: 28px;
+
+  content: "囍";
+
+  color: rgba(125, 25, 25, 0.58);
+  font-family: "Songti SC", "SimSun", serif;
+  font-size: 3rem;
+  line-height: 1;
+
+  text-shadow: 0 0 14px rgba(139, 0, 0, 0.5);
+}
+
+.start-content::before {
+  left: 24px;
+}
+
+.start-content::after {
+  right: 24px;
+}
+
+/* 项目名称 */
+.start-subtitle {
+  margin-bottom: 10px;
+
+  color: #9d7849;
+  font-size: 0.72rem;
+  letter-spacing: 0.36rem;
+  text-transform: uppercase;
+}
+
+/* 主标题 */
+.start-content h1 {
+  margin: 0 auto 16px;
+
+  color: #e0bd7d;
+  font-family:
+    "Songti SC",
+    "Noto Serif SC",
+    Georgia,
+    serif;
+
+  font-size: clamp(2.25rem, 5vw, 4.2rem);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: 0.05em;
+
+  text-shadow:
+    0 3px 4px #000000,
+    0 0 18px rgba(137, 20, 20, 0.75);
+}
+
+/* 第一段简介 */
+.start-description {
+  max-width: 590px;
+  margin: 0 auto 18px;
+
+  color: #d5c09a;
+  font-size: 1rem;
+  line-height: 1.65;
+  letter-spacing: 0.04em;
+}
+
+/* 故事说明区域 */
+.start-intro {
+  max-width: 620px;
+  margin: 0 auto 20px;
+  padding: 14px 18px;
+
+  border-top: 1px solid rgba(184, 138, 74, 0.35);
+  border-bottom: 1px solid rgba(184, 138, 74, 0.35);
+
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.intro-line {
+  color: #bca983;
+  font-size: 0.9rem;
+  font-style: normal;
+  line-height: 1.65;
+  letter-spacing: 0.025em;
+}
+
+/* Warning警告文字 */
+.intro-line + .intro-line {
+  margin-top: 10px;
+
+  color: #bd6659;
+  font-style: italic;
+  letter-spacing: 0.045em;
+
+  text-shadow: 0 0 10px rgba(138, 18, 18, 0.55);
+}
+
+/* 名字输入区域 */
+.name-field {
+  margin: 0 auto 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+}
+
+.name-field label {
+  color: #bd955a;
+  font-size: 0.75rem;
+  letter-spacing: 0.25rem;
+  text-transform: uppercase;
+}
+
+.name-field input {
+  width: min(310px, 100%);
+  padding: 11px 16px;
+
+  color: #ead5ad;
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.72),
+      rgba(26, 5, 5, 0.75)
+    );
+
+  border: 1px solid rgba(187, 139, 68, 0.85);
+  border-radius: 0;
+
+  font: inherit;
+  text-align: center;
+  letter-spacing: 0.08em;
+
+  box-shadow:
+    inset 0 0 15px rgba(0, 0, 0, 0.8),
+    0 0 10px rgba(102, 14, 14, 0.25);
+}
+
+.name-field input::placeholder {
+  color: rgba(214, 190, 150, 0.4);
+}
+
+.name-field input:focus {
+  outline: none;
+  border-color: #d3aa65;
+
+  box-shadow:
+    inset 0 0 15px rgba(0, 0, 0, 0.8),
+    0 0 16px rgba(138, 25, 25, 0.55);
+}
+
+/* 进入宅院按钮 */
+#start-button {
+  position: relative;
+
+  min-width: 220px;
+  padding: 12px 28px;
+
+  color: #ead4a6;
+  background:
+    linear-gradient(
+      180deg,
+      #771919,
+      #360808
+    );
+
+  border: 1px solid #b68b4f;
+  border-radius: 0;
+
+  cursor: pointer;
+
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.7),
+    inset 0 0 15px rgba(0, 0, 0, 0.55);
+
+  transition:
+    transform 180ms ease,
+    filter 180ms ease,
+    box-shadow 180ms ease;
+}
+
+#start-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.16);
+
+  box-shadow:
+    0 0 24px rgba(151, 26, 26, 0.62),
+    inset 0 0 15px rgba(0, 0, 0, 0.55);
+}
+
+.name-error {
+  color: #db6b5d;
+  font-size: 0.78rem;
+}
+
+/* 手机和平板 */
+@media (max-width: 650px) {
+  .start-screen {
+    padding: 10px;
+  }
+
+  .start-content {
+    width: 100%;
+    max-height: calc(100dvh - 20px);
+    padding: 28px 22px 24px;
+  }
+
+  .start-content::before,
+  .start-content::after {
+    display: none;
+  }
+
+  .start-content h1 {
+    font-size: clamp(2rem, 11vw, 3rem);
+  }
+
+  .start-description {
+    font-size: 0.92rem;
+  }
+
+  .intro-line {
+    font-size: 0.84rem;
+  }
+}

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>The Nameless Invitation | Nameless Wedding</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Start screen -->
+<section id="start-screen" class="start-screen">
+  <div class="start-content">
+
+    <p class="start-subtitle">
+      NAMELESS WEDDING
+    </p>
+
+    <h1>The Nameless Invitation</h1>
+
+    <p class="start-description">
+      A wedding invitation with no bride's name
+      has been addressed to you.
+    </p>
+
+    <div class="start-intro">
+      <p class="intro-line">
+        It leads you to an abandoned mansion where
+        a wedding was never completed. Explore the
+        house, uncover the bride's identity, and
+        decide how the ceremony should end.
+      </p>
+
+      <p class="intro-line">
+        Warning: Once you enter, the wedding begins again.
+      </p>
+    </div>
+
+    <div class="name-field">
+      <label for="player-name">Your Name</label>
+
+      <input
+        id="player-name"
+        type="text"
+        maxlength="12"
+        placeholder="Enter your name..."
+        autocomplete="off"
+      >
+
+      <p id="name-error" class="name-error hidden">
+        Please enter a name before entering.
+      </p>
+    </div>
+
+    <button id="start-button" type="button">
+      Enter the Mansion
+    </button>
+
+  </div>
+</section>
+
+
+  <!-- Main game screen -->
+  <main id="game" class="game hidden">
+
+    <!-- 16:9 game stage -->
+    <section id="game-stage" class="game-stage">
+
+      <!-- Scene background -->
+      <img
+        id="scene-background"
+        class="scene-background"
+        src="images/hall/screen1.jpg"
+        alt="Mansion hall"
+      >
+
+      <!-- Transparent props will be placed here by JavaScript -->
+      <div id="prop-layer" class="prop-layer"></div>
+
+      <!-- Top interface -->
+      <header class="game-header">
+        <button
+          id="map-button"
+          class="ui-button"
+          type="button"
+        >
+          Map
+        </button>
+
+        <h2 id="scene-title">Mansion Hall</h2>
+
+        <button
+          id="sound-button"
+          class="ui-button"
+          type="button"
+        >
+          Sound
+        </button>
+      </header>
+
+      <!-- Player name tag (top-left) -->
+      <div id="player-tag" class="player-tag">
+        <span class="player-tag-label">Guest</span>
+        <span id="player-tag-name" class="player-tag-name"></span>
+      </div>
+
+      <!-- Guidance prompt (e.g. "go to the next location") -->
+      <div id="scene-prompt" class="scene-prompt hidden">
+        <p id="scene-prompt-text"></p>
+        <button
+          id="scene-prompt-button"
+          class="scene-prompt-button hidden"
+          type="button"
+        ></button>
+      </div>
+
+      <!-- Scene message -->
+      <div id="message-box" class="message-box">
+        <p id="message-text">
+          The gate closed behind you. The radio on the counter suddenly crackled with static.
+        </p>
+      </div>
+
+      <!-- Bottom inventory bar -->
+      <section class="inventory-panel">
+        <button
+          id="clue-button"
+          class="inventory-side-button"
+          type="button"
+        >
+          Clues
+        </button>
+
+        <div id="inventory-list" class="inventory-list">
+          <!-- Collected items appear here -->
+        </div>
+
+        <button
+          id="reset-button"
+          class="inventory-side-button"
+          type="button"
+        >
+          Reset
+        </button>
+      </section>
+
+    </section>
+  </main>
+
+
+  <!-- Map panel -->
+  <section
+    id="map-panel"
+    class="overlay-panel hidden"
+    aria-hidden="true"
+  >
+    <div class="panel-content">
+
+      <button
+        class="close-button"
+        data-close="map-panel"
+        type="button"
+      >
+        ×
+      </button>
+
+      <h2>Mansion Map</h2>
+
+      <p id="map-progress" class="map-progress"></p>
+
+      <div id="location-list" class="location-list">
+        <!-- Discovered locations are shown by JavaScript -->
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Clue panel -->
+  <section
+    id="clue-panel"
+    class="overlay-panel hidden"
+    aria-hidden="true"
+  >
+    <div class="panel-content">
+
+      <button
+        class="close-button"
+        data-close="clue-panel"
+        type="button"
+      >
+        ×
+      </button>
+
+      <h2>Clues Found</h2>
+
+      <div id="clue-list" class="clue-list">
+        <p class="empty-message">No clues found yet.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Item and story modal -->
+  <section
+    id="item-modal"
+    class="overlay-panel hidden"
+    aria-hidden="true"
+  >
+    <div class="item-modal-content">
+
+      <button
+        class="close-button"
+        data-close="item-modal"
+        type="button"
+      >
+        ×
+      </button>
+
+      <img
+        id="modal-image"
+        src=""
+        alt=""
+      >
+
+      <h2 id="modal-title"></h2>
+
+      <p id="modal-description"></p>
+
+      <div id="modal-actions" class="modal-actions"></div>
+
+    </div>
+  </section>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
